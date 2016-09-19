@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary">#673AB7</color>
+    <color name="primary_dark">#4527A0</color>
+    <color name="light_primary">#D1C4E9</color>
+    <color name="accent">#673AB7</color>
+    <color name="control_normal">#DADDE0</color>
+    <color name="control_activated">#AB47BC</color>
+    <color name="control_highlight">#8997AD</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="red">#E53935</color>
+    <color name="divider_color">#CCCCCC</color>
+    <color name="text_hint">#AAAAAA</color>
+    <color name="text_normal">#333333</color>
+    <color name="text_gray">#666666</color>
+    <color name="background_normal">#EFEFEF</color>
+    <color name="list_background_selected">#E1F5FE</color>
+    <color name="button_pressed">#9575CD</color>
+    <color name="button_layout_background">#DDDDDD</color>
+    <color name="green_background">#1DE9B6</color>
+
+</resources>

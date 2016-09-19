@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- About App Keys -->
+    <string name="key_app_version" translatable="false">key_app_version</string>
+    <string name="value_app_version" translatable="false">%1$s (%2$s)</string>
+    <string name="key_copyright" translatable="false">key_copyright</string>
+
+    <!-- Settings Keys -->
+    <string name="key_about_app" translatable="false">key_about_app</string>
+    <string name="key_about_mojotea" translatable="false">key_about_mojotea</string>
+    <string name="key_username" translatable="false">key_username</string>
+    <string name="key_logout" translatable="false">key_logout</string>
+    <string name="login_method_facebook" translatable="false">Facebook</string>
+    <string name="login_method_google_plus" translatable="false">Google Plus</string>
+    <string name="login_method_g2m" translatable="false">GoToMeeting</string>
+    <string name="login_method_conspire" translatable="false">Conspire</string>
+
+    <!-- Firebase references -->
+    <string name="firebase_base_data_url" translatable="false">https://mojotea.firebaseio.com/Data/</string>
+    <string name="firebase_base_order_url" translatable="false">https://mojotea.firebaseio.com/Order/</string>
+    <string name="firebase_store_open_status_url" translatable="false">https://mojotea.firebaseio.com/Data/IsStoreClosed/</string>
+
+</resources>

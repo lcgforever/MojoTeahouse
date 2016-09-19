@@ -1,0 +1,196 @@
+<resources>
+
+    <!-- Class Names -->
+    <string name="app_name">MojoTea</string>
+    <string name="edit_mojo_item_activity_name">Edit</string>
+
+    <!-- General Strings -->
+    <string name="action_settings">Settings</string>
+    <string name="action_done">Done</string>
+    <string name="action_next">Next</string>
+    <string name="action_delete">Delete</string>
+    <string name="toolbar_transition">toolbar_transition</string>
+    <string name="layout_transition">layout_transition</string>
+    <string name="no_network_error_message">No network access. Please connect to internet to get update.</string>
+    <string name="no_network_relaunch_error_message">No network access. Please connect to internet and relaunch.</string>
+    <string name="no_network_place_order_error_message">No network access. Please connect to internet to place order.</string>
+
+    <!-- Settings Activity -->
+    <string name="settings_activity_title">Settings</string>
+    <string name="settings_activity_about_app">About App</string>
+    <string name="settings_activity_about_mojotea">About Mojo Teahouse</string>
+
+    <!-- About App Activity -->
+    <string name="about_app_activity_title">About App</string>
+    <string name="about_app_activity_app_version">Version</string>
+    <string name="about_app_activity_copyright">Copyright</string>
+
+    <!-- Copyright Activity -->
+    <string name="copyright_activity_title">Copyright</string>
+
+    <!-- About Mojo Activity -->
+    <string name="about_mojo_activity_title">About Mojo Teahouse</string>
+    <string name="about_mojo_activity_introduction">It was a humorously perilouse business for both of us. For, before we prceed fruther, it must be said tha the monkey-rop was fast at both ends; afst to Queequeg\'s broad</string>
+    <string name="about_mojo_activity_business_address">1234 Hollister Ave, Goleta, CA 93117</string>
+    <string name="about_mojo_activity_business_phone">+1 805&#8211;123&#8211;4567</string>
+    <string name="about_mojo_activity_business_email">contacts@example.com</string>
+    <string name="about_mojo_activity_business_hours">Mon-Fri 12pm to 9pm</string>
+
+    <!-- Main Activity -->
+    <string name="loading_data_message">Loading data&#8230;</string>
+
+    <!-- Navigation Drawer -->
+    <string name="action_open_navigation_drawer">Open navigation drawer</string>
+    <string name="action_close_navigation_drawer">Close navigation drawer</string>
+    <string name="nav_menu_title">Menu</string>
+    <string name="nav_orders_title">Orders</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Mojo Menu Fragment -->
+    <string name="mojo_menu_price_text">$%.2f</string>
+    <string name="mojo_menu_topping_text">Topping: %s</string>
+    <string name="go_to_cart_button_text">Go To Cart (%d)</string>
+    <string name="fetch_remote_data_error_message">Cannot fetch enough information from the server. Please reopen the page.</string>
+    <string name="mojo_menu_new_text">New</string>
+    <string name="mojo_menu_sold_out_message">This item has been sold out! Please select others.</string>
+
+    <!-- Edit Mojo Item Activity -->
+    <string name="quantity_hint">Quantity</string>
+    <string name="quantity_initial_value">1</string>
+    <string name="quantity_customize_text">Customize</string>
+    <string name="toppings_hint">Toppings</string>
+    <string name="topping_format">%1$s  %2$s (%3$.2f)</string>
+    <string name="no_topping_text">No toppings available</string>
+    <string name="add_to_cart_button_text">Add to cart ($%.2f)</string>
+    <string name="get_topping_error_message">Cannot get toppings for this item</string>
+    <string name="add_to_cart_error_message">Cannot add to cart. Please try again.</string>
+    <string name="item_note_hint">Note</string>
+    <string name="edit_note_hint">Half sugar, 2 spoons etc</string>
+
+    <!-- Cart Activity -->
+    <string name="cart_toolbar_title">Cart</string>
+    <string name="next_button_text">Check Out</string>
+    <string name="quantity_format">Qty: %d</string>
+    <string name="price_format">$%.2f</string>
+    <string name="order_total_text">Order Total</string>
+    <string name="get_order_item_error_message">Cannot retrieve order summary details. Please reopen the page.</string>
+    <string name="action_mode_title_format">%d Selected</string>
+    <string name="delete_item_dialog_title">Delete Confirmation</string>
+    <string name="delete_selected_items_dialog_message">Do you really want to delete the selected item(s)?</string>
+
+    <!-- Edit Cart Item Activity -->
+    <string name="edit_done_button_text">Done ($%.2f)</string>
+    <string name="get_cart_item_error_message">Cannot get information about this item. Please reopen the page.</string>
+    <string name="edit_cart_item_error_message">Cannot update the changes for this item. Please try again.</string>
+    <string name="delete_cart_item_dialog_message">Do you really want to delete this item?</string>
+    <string name="delete_failed_error_message">Delete item failed. Please try again.</string>
+
+    <!-- Place Order Activity -->
+    <string name="place_order_toolbar_title">Order Detail</string>
+    <string name="name_hint">Name</string>
+    <string name="address_hint">Address</string>
+    <string name="zip_hint">Zip</string>
+    <string name="phone_hint">Phone</string>
+    <string name="deliver_time_hint">Deliver By (12pm to 9pm)</string>
+    <string name="order_note_hint">Note (Door gate # etc)</string>
+    <string name="name_error_message">Please enter your name</string>
+    <string name="address_error_message">Please enter your valid address</string>
+    <string name="zip_error_message">Sorry we cannot deliver to your zip. (Invalid or too far)</string>
+    <string name="phone_error_message">Please enter a valid phone number</string>
+    <string name="deliver_too_soon_error_message">Please allow at least 30 minutes for us to prepare and deliver.</string>
+    <string name="deliver_business_time_error_message">Please select deliver time within our business time: 12 pm to 9 pm.</string>
+    <string name="deliver_date_error_message">Please select deliver time within two days.</string>
+    <string name="accept_payment_text">We accept:\nCash\nCredit cards ($.50 transaction fee)\nVenmo (@Mojo-Teahouse)</string>
+    <string name="place_order_button_text">Place Order</string>
+    <string name="place_order_no_item_error_message">There is nothing in your cart!</string>
+    <string name="place_order_error_message">An error occurred when placing order. Please try again!</string>
+    <string name="place_order_dialog_title">Place Order Confirmation</string>
+    <string name="place_order_dialog_message">Do you want to place this order?</string>
+    <string name="placing_order_data_message">Placing order, please wait&#8230;</string>
+    <string name="customer_address_format">%1$s   %2$s</string>
+
+    <!-- Post Order Activity -->
+    <string name="got_it_button_text">Got It!</string>
+    <string name="order_price_format">$%.2f</string>
+    <string name="order_deliver_time_format">%s</string>
+    <string name="customer_name_text">%s,</string>
+    <string name="post_all_done_text">All done! Please get your payment ready.</string>
+    <string name="post_total_text">Total</string>
+    <string name="post_deliver_by_text">Deliver by</string>
+    <string name="post_see_ya_text">See ya,</string>
+    <string name="question_text">Questions?</string>
+    <string name="contact_text">Contact Mr.Mojo</string>
+
+    <!-- Order History Fragment -->
+    <string name="get_order_history_error_message">Cannot get order history information. Please reopen the page.</string>
+    <string name="no_order_text">No order available for review.</string>
+    <string name="today_text">Today, </string>
+    <string name="order_summary_additional_count_format">&#38; %d more&#8230;</string>
+
+    <!-- View Order Activity -->
+    <string name="view_order_toolbar_title">Order</string>
+
+    <!-- Closed Now Dialog -->
+    <string name="prepare_for_food_text">&#8230;and are preparing for more food!</string>
+    <string name="browse_app_text">You can still browse our menu and add to cart. When we are open you will be able to place order as always.</string>
+
+
+    <!-- Strings related to Settings -->
+
+    <!-- Example General settings -->
+    <string name="pref_header_general">General</string>
+
+    <string name="pref_title_social_recommendations">Enable social recommendations</string>
+    <string name="pref_description_social_recommendations">Recommendations for people to contact
+        based on your message history
+    </string>
+
+    <string name="pref_title_display_name">Display name</string>
+    <string name="pref_default_display_name">John Smith</string>
+
+    <string name="pref_title_add_friends_to_messages">Add friends to messages</string>
+    <string-array name="pref_example_list_titles">
+        <item>Always</item>
+        <item>When possible</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_example_list_values">
+        <item>1</item>
+        <item>0</item>
+        <item>-1</item>
+    </string-array>
+
+    <!-- Example settings for Data & Sync -->
+    <string name="pref_header_data_sync">Data &amp; sync</string>
+
+    <string name="pref_title_sync_frequency">Sync frequency</string>
+    <string-array name="pref_sync_frequency_titles">
+        <item>15 minutes</item>
+        <item>30 minutes</item>
+        <item>1 hour</item>
+        <item>3 hours</item>
+        <item>6 hours</item>
+        <item>Never</item>
+    </string-array>
+    <string-array name="pref_sync_frequency_values">
+        <item>15</item>
+        <item>30</item>
+        <item>60</item>
+        <item>180</item>
+        <item>360</item>
+        <item>-1</item>
+    </string-array>
+
+    <string name="pref_title_system_sync_settings">System sync settings</string>
+
+    <!-- Example settings for Notifications -->
+    <string name="pref_header_notifications">Notifications</string>
+
+    <string name="pref_title_new_message_notifications">New message notifications</string>
+
+    <string name="pref_title_ringtone">Ringtone</string>
+    <string name="pref_ringtone_silent">Silent</string>
+
+    <string name="pref_title_vibrate">Vibrate</string>
+
+</resources>

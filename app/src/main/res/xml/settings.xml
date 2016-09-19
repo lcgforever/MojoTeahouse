@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Preference
+        android:key="@string/key_about_app"
+        android:title="@string/settings_activity_about_app" />
+
+    <Preference
+        android:key="@string/key_about_mojotea"
+        android:title="@string/settings_activity_about_mojotea" />
+
+</PreferenceScreen>
