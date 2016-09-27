@@ -1,5 +1,6 @@
 package com.mojoteahouse.mojotea.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -7,10 +8,16 @@ import android.view.View;
 
 import com.mojoteahouse.mojotea.BuildConfig;
 import com.mojoteahouse.mojotea.R;
-import com.mojoteahouse.mojotea.activity.CopyrightActivity;
 
 public class AboutAppFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
+
+    private AboutAppClickListener aboutAppClickListener;
+
+    public interface AboutAppClickListener {
+
+        void onCopyrightClicked();
+    }
 
     public static AboutAppFragment newInstance() {
         AboutAppFragment aboutAppFragment = new AboutAppFragment();
@@ -18,7 +25,14 @@ public class AboutAppFragment extends PreferenceFragment
         return aboutAppFragment;
     }
 
-    public AboutAppFragment() {
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            aboutAppClickListener = (AboutAppClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Parent activity must implement " + AboutAppClickListener.class.getName());
+        }
     }
 
     @Override
@@ -40,11 +54,17 @@ public class AboutAppFragment extends PreferenceFragment
     }
 
     @Override
+    public void onDetach() {
+        aboutAppClickListener = null;
+        super.onDetach();
+    }
+
+    @Override
     public boolean onPreferenceClick(Preference preference) {
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.key_copyright))) {
-            CopyrightActivity.start(getActivity());
+            aboutAppClickListener.onCopyrightClicked();
         }
 
         return false;

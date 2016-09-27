@@ -23,8 +23,7 @@
             android:id="@+id/image_view"
             android:layout_width="106dp"
             android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_loading" />
+            android:scaleType="fitXY" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,7 +75,7 @@
                     android:layout_alignParentTop="true"
                     android:ellipsize="end"
                     android:fontFamily="@string/roboto_medium"
-                    android:singleLine="true"
+                    android:lines="1"
                     android:textColor="@color/text_normal"
                     android:textSize="18sp" />
 
@@ -88,7 +87,7 @@
                     android:layout_marginTop="4dp"
                     android:ellipsize="end"
                     android:fontFamily="@string/roboto_medium"
-                    android:singleLine="true" />
+                    android:lines="1" />
 
                 <TextView
                     android:id="@+id/topping_text"
@@ -97,7 +96,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
-                    android:singleLine="true"
+                    android:lines="1"
                     android:textColor="@color/text_normal"
                     android:textSize="16sp" />
 

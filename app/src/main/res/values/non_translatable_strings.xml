@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- App Secrets -->
+    <string name="facebook_app_id">1750953218486984</string>
+
+    <!-- Mojo Info -->
+    <string name="mojo_phone_number" translatable="false">+1 805&#8211;123&#8211;4567</string>
+    <string name="mojo_email_address" translatable="false">contacts@example.com</string>
+
     <!-- About App Keys -->
     <string name="key_app_version" translatable="false">key_app_version</string>
     <string name="value_app_version" translatable="false">%1$s (%2$s)</string>
@@ -9,6 +16,7 @@
     <!-- Settings Keys -->
     <string name="key_about_app" translatable="false">key_about_app</string>
     <string name="key_about_mojotea" translatable="false">key_about_mojotea</string>
+    <string name="key_sign_out" translatable="false">Sign Out</string>
     <string name="key_username" translatable="false">key_username</string>
     <string name="key_logout" translatable="false">key_logout</string>
     <string name="login_method_facebook" translatable="false">Facebook</string>
@@ -16,9 +24,21 @@
     <string name="login_method_g2m" translatable="false">GoToMeeting</string>
     <string name="login_method_conspire" translatable="false">Conspire</string>
 
-    <!-- Firebase references -->
-    <string name="firebase_base_data_url" translatable="false">https://mojotea.firebaseio.com/Data/</string>
-    <string name="firebase_base_order_url" translatable="false">https://mojotea.firebaseio.com/Order/</string>
-    <string name="firebase_store_open_status_url" translatable="false">https://mojotea.firebaseio.com/Data/IsStoreClosed/</string>
+    <!-- Preferences -->
+    <string name="pref_gcm_token" translatable="false">PREF_GCM_TOKEN</string>
+    <string name="pref_signed_in" translatable="false">PREF_SIGNED_IN</string>
+    <string name="pref_user_id" translatable="false">PREF_USER_ID</string>
+    <string name="pref_user_email" translatable="false">PREF_USER_EMAIL</string>
+    <string name="pref_customer_name" translatable="false">PREF_CUSTOMER_NAME</string>
+    <string name="pref_customer_address" translatable="false">PREF_CUSTOMER_ADDRESS</string>
+    <string name="pref_customer_zip" translatable="false">PREF_CUSTOMER_ZIP</string>
+    <string name="pref_customer_phone" translatable="false">PREF_CUSTOMER_PHONE</string>
+
+    <!-- Intent Filter -->
+    <string name="mojo_message_intent_filter" translatable="false">MOJO_MESSAGE_INTENT_FILTER</string>
+
+    <!-- Regex -->
+    <string name="email_regex" translatable="false">^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$</string>
+    <string name="phone_number_regex" translatable="false">^(\\+0?1\\s)?\\(?\\d{3}\\)?\\s*[.-]?\\s*\\d{3}\\s*[.-]?\\s*\\d{4}\\s*$</string>
 
 </resources>

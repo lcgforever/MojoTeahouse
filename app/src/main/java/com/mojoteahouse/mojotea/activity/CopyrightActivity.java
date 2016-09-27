@@ -18,9 +18,9 @@ import java.io.InputStreamReader;
 
 public class CopyrightActivity extends AppCompatActivity {
 
-    public static void start(Context context) {
+    public static void start(Context context, Bundle optionsBundle) {
         Intent intent = new Intent(context, CopyrightActivity.class);
-        context.startActivity(intent);
+        context.startActivity(intent, optionsBundle);
     }
 
     @Override
@@ -37,7 +37,7 @@ public class CopyrightActivity extends AppCompatActivity {
             supportActionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        TextView copyrightTextView = (TextView) findViewById(R.id.copyright_activity_text_view);
+        TextView copyrightTextView = (TextView) findViewById(R.id.copyright_text_view);
         copyrightTextView.setText(getCopyrightText());
     }
 

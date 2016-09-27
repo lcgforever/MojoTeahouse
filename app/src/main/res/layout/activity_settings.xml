@@ -13,12 +13,13 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:elevation="@dimen/elevation"
+        android:transitionName="@string/toolbar_transition"
         app:navigationIcon="@drawable/ic_back_white"
         app:title="@string/settings_activity_title"
         app:titleTextAppearance="@style/Toolbar.SmallTextAppearance" />
 
     <FrameLayout
-        android:id="@+id/settings_activity_content_frame"
+        android:id="@+id/settings_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -11,14 +11,36 @@
     <string name="action_delete">Delete</string>
     <string name="toolbar_transition">toolbar_transition</string>
     <string name="layout_transition">layout_transition</string>
+    <string name="element_transition">element_transition</string>
     <string name="no_network_error_message">No network access. Please connect to internet to get update.</string>
     <string name="no_network_relaunch_error_message">No network access. Please connect to internet and relaunch.</string>
     <string name="no_network_place_order_error_message">No network access. Please connect to internet to place order.</string>
+
+    <!-- Login Activity -->
+    <string name="login_email_hint">Email Address</string>
+    <string name="login_password_hint">Password (6 or more)</string>
+    <string name="login_confirm_password_hint">Confirm Password</string>
+    <string name="login_sign_in_text">Sign In</string>
+    <string name="login_sign_up_text">Sign Up</string>
+    <string name="login_facebook_sign_in_text">Sign in with Facebook</string>
+    <string name="login_forget_password_text">Forgot password?</string>
+    <string name="login_sign_up_button_text"><u>New here? Sign Up!</u></string>
+    <string name="login_sign_in_button_text"><u>Back to Sign In</u></string>
+    <string name="login_email_format_incorrect_message">Email format is incorrect!</string>
+    <string name="login_password_length_invalid_message">Password should be 6 or more characters!</string>
+    <string name="login_confirm_password_incorrect_message">Two password should match!</string>
+    <string name="login_sign_in_failed_message">Sign in failed: %s</string>
+    <string name="login_sign_up_failed_message">Sign up failed: %s</string>
+    <string name="login_reset_password_email_sent_message">An email with password reset info has been sent to you!</string>
+    <string name="login_signing_in_message">Signing in&#8230;</string>
+    <string name="login_signing_up_message">Signing up&#8230;</string>
 
     <!-- Settings Activity -->
     <string name="settings_activity_title">Settings</string>
     <string name="settings_activity_about_app">About App</string>
     <string name="settings_activity_about_mojotea">About Mojo Teahouse</string>
+    <string name="settings_activity_sign_out">Sign Out</string>
+    <string name="settings_activity_dialog_sign_out_title">Do you want to sign out?</string>
 
     <!-- About App Activity -->
     <string name="about_app_activity_title">About App</string>
@@ -32,12 +54,19 @@
     <string name="about_mojo_activity_title">About Mojo Teahouse</string>
     <string name="about_mojo_activity_introduction">It was a humorously perilouse business for both of us. For, before we prceed fruther, it must be said tha the monkey-rop was fast at both ends; afst to Queequeg\'s broad</string>
     <string name="about_mojo_activity_business_address">1234 Hollister Ave, Goleta, CA 93117</string>
-    <string name="about_mojo_activity_business_phone">+1 805&#8211;123&#8211;4567</string>
-    <string name="about_mojo_activity_business_email">contacts@example.com</string>
     <string name="about_mojo_activity_business_hours">Mon-Fri 12pm to 9pm</string>
+    <string name="about_mojo_activity_send_email_title">Send Email</string>
+    <string name="about_mojo_activity_phone_number_text">Phone Number</string>
+    <string name="about_mojo_activity_copy_snackbar_message">Mojo Teahouse phone number copied!</string>
 
-    <!-- Main Activity -->
+    <!-- Mojo Menu Activity -->
     <string name="loading_data_message">Loading data&#8230;</string>
+    <string name="mojo_menu_price_text">$%.2f</string>
+    <string name="mojo_menu_topping_text">Topping: %s</string>
+    <string name="go_to_cart_button_text">Cart (%s)</string>
+    <string name="fetch_remote_data_error_message">Cannot fetch enough information from the server. Please reopen the page.</string>
+    <string name="mojo_menu_new_text">New</string>
+    <string name="mojo_menu_sold_out_message">This item has been sold out! Please select others.</string>
 
     <!-- Navigation Drawer -->
     <string name="action_open_navigation_drawer">Open navigation drawer</string>
@@ -46,25 +75,19 @@
     <string name="nav_orders_title">Orders</string>
     <string name="nav_settings">Settings</string>
 
-    <!-- Mojo Menu Fragment -->
-    <string name="mojo_menu_price_text">$%.2f</string>
-    <string name="mojo_menu_topping_text">Topping: %s</string>
-    <string name="go_to_cart_button_text">Go To Cart (%d)</string>
-    <string name="fetch_remote_data_error_message">Cannot fetch enough information from the server. Please reopen the page.</string>
-    <string name="mojo_menu_new_text">New</string>
-    <string name="mojo_menu_sold_out_message">This item has been sold out! Please select others.</string>
-
     <!-- Edit Mojo Item Activity -->
+    <string name="mojo_item_name_hint">Name</string>
+    <string name="mojo_item_name_format">%1$s (%2$s)</string>
     <string name="quantity_hint">Quantity</string>
     <string name="quantity_initial_value">1</string>
     <string name="quantity_customize_text">Customize</string>
     <string name="toppings_hint">Toppings</string>
-    <string name="topping_format">%1$s  %2$s (%3$.2f)</string>
+    <string name="topping_format">%1$s  %2$s ($%3$.2f)</string>
     <string name="no_topping_text">No toppings available</string>
     <string name="add_to_cart_button_text">Add to cart ($%.2f)</string>
     <string name="get_topping_error_message">Cannot get toppings for this item</string>
     <string name="add_to_cart_error_message">Cannot add to cart. Please try again.</string>
-    <string name="item_note_hint">Note</string>
+    <string name="item_note_hint">Note (Optional)</string>
     <string name="edit_note_hint">Half sugar, 2 spoons etc</string>
 
     <!-- Cart Activity -->
@@ -112,6 +135,7 @@
     <!-- Post Order Activity -->
     <string name="got_it_button_text">Got It!</string>
     <string name="order_price_format">$%.2f</string>
+    <string name="order_deliver_time_today_format">Today %s</string>
     <string name="order_deliver_time_format">%s</string>
     <string name="customer_name_text">%s,</string>
     <string name="post_all_done_text">All done! Please get your payment ready.</string>

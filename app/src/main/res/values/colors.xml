@@ -5,6 +5,8 @@
     <color name="primary_dark">#4527A0</color>
     <color name="light_primary">#D1C4E9</color>
     <color name="accent">#673AB7</color>
+    <color name="button_accent">#FF4081</color>
+    <color name="light_accent">#F48FB1</color>
     <color name="control_normal">#DADDE0</color>
     <color name="control_activated">#AB47BC</color>
     <color name="control_highlight">#8997AD</color>
@@ -20,5 +22,7 @@
     <color name="button_pressed">#9575CD</color>
     <color name="button_layout_background">#DDDDDD</color>
     <color name="green_background">#1DE9B6</color>
+    <color name="facebook_color">#3b5998</color>
+    <color name="facebook_light_color">#5d7cbe</color>
 
 </resources>

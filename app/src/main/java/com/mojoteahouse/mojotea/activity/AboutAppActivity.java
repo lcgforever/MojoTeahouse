@@ -3,6 +3,7 @@ package com.mojoteahouse.mojotea.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,11 +11,13 @@ import android.support.v7.widget.Toolbar;
 import com.mojoteahouse.mojotea.R;
 import com.mojoteahouse.mojotea.fragment.AboutAppFragment;
 
-public class AboutAppActivity extends AppCompatActivity {
+public class AboutAppActivity extends AppCompatActivity implements AboutAppFragment.AboutAppClickListener {
 
-    public static void start(Context context) {
+    private Toolbar toolbar;
+
+    public static void start(Context context, Bundle optionsBundle) {
         Intent intent = new Intent(context, AboutAppActivity.class);
-        context.startActivity(intent);
+        context.startActivity(intent, optionsBundle);
     }
 
     @Override
@@ -23,7 +26,7 @@ public class AboutAppActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_about_app);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -32,7 +35,7 @@ public class AboutAppActivity extends AppCompatActivity {
         }
 
         getFragmentManager().beginTransaction()
-                .replace(R.id.about_app_activity_content_frame, AboutAppFragment.newInstance())
+                .replace(R.id.about_app_content_frame, AboutAppFragment.newInstance())
                 .commit();
     }
 
@@ -40,5 +43,12 @@ public class AboutAppActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         supportFinishAfterTransition();
         return true;
+    }
+
+    @Override
+    public void onCopyrightClicked() {
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                this, toolbar, getString(R.string.toolbar_transition));
+        CopyrightActivity.start(this, optionsCompat.toBundle());
     }
 }

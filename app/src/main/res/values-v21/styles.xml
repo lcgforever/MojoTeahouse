@@ -1,8 +1,18 @@
 <resources>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorAccent">@color/accent</item>
+        <item name="colorControlNormal">@color/control_normal</item>
+        <item name="colorControlActivated">@color/accent</item>
+        <item name="colorControlHighlight">@color/control_highlight</item>
+        <item name="android:spinnerStyle">@style/Widget.AppCompat.Spinner.Underlined</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="windowActionModeOverlay">true</item>
         <item name="android:windowActionModeOverlay">true</item>
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowActivityTransitions">true</item>
@@ -20,13 +30,14 @@
         <item name="android:timePickerDialogTheme">@style/Theme.Dialog</item>
         <item name="android:alertDialogStyle">@style/AlertDialogTheme</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogStyle">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="android:actionModeStyle">@style/Style.ActionMode.Appreance</item>
         <item name="actionModeStyle">@style/Style.ActionMode.Appreance</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.TranslucentStatusBar">
+    <style name="AppTheme.TranslucentStatusBar">
         <item name="android:windowTranslucentStatus">true</item>
-        <item name="android:alertDialogStyle">@style/AlertDialogTheme</item>
-        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
     <style name="Theme.Dialog" parent="android:Theme.Material.Light.Dialog">

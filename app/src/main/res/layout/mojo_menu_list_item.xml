@@ -25,8 +25,7 @@
             android:id="@+id/mojo_menu_image_view"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_loading" />
+            android:scaleType="fitXY" />
 
         <FrameLayout
             android:layout_width="match_parent"

@@ -1,20 +1,41 @@
 package com.mojoteahouse.mojotea.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.view.View;
 
 import com.mojoteahouse.mojotea.R;
-import com.mojoteahouse.mojotea.activity.AboutAppActivity;
 
 public class SettingsFragment extends PreferenceFragment
         implements Preference.OnPreferenceClickListener {
+
+    private SettingsClickListener settingsClickListener;
+
+    public interface SettingsClickListener {
+
+        void onAboutAppClicked();
+
+        void onAboutMojoClicked();
+
+        void onSignOutClicked();
+    }
 
     public static SettingsFragment newInstance() {
         SettingsFragment settingsFragment = new SettingsFragment();
         settingsFragment.setRetainInstance(true);
         return settingsFragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            settingsClickListener = (SettingsClickListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException("Parent activity must implement " + SettingsClickListener.class.getName());
+        }
     }
 
     @Override
@@ -32,6 +53,15 @@ public class SettingsFragment extends PreferenceFragment
 
         findPreference(getString(R.string.key_about_mojotea))
                 .setOnPreferenceClickListener(this);
+
+        findPreference(getString(R.string.key_sign_out))
+                .setOnPreferenceClickListener(this);
+    }
+
+    @Override
+    public void onDetach() {
+        settingsClickListener = null;
+        super.onDetach();
     }
 
     @Override
@@ -39,9 +69,13 @@ public class SettingsFragment extends PreferenceFragment
         String key = preference.getKey();
 
         if (key.equals(getString(R.string.key_about_app))) {
-            AboutAppActivity.start(getActivity());
+            settingsClickListener.onAboutAppClicked();
             return true;
         } else if (key.equals(getString(R.string.key_about_mojotea))) {
+            settingsClickListener.onAboutMojoClicked();
+            return true;
+        } else if (key.equals(getString(R.string.key_sign_out))) {
+            settingsClickListener.onSignOutClicked();
             return true;
         }
 

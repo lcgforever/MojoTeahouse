@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:theme="@style/AppTheme.AppBarOverlay">
+    app:elevation="@dimen/elevation"
+    app:theme="@style/AppTheme.AppBarOverlay">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -11,6 +12,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         android:transitionName="@string/toolbar_transition"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
+        app:navigationIcon="@drawable/ic_back_white"
+        app:popupTheme="@style/AppTheme.PopupOverlay"
+        app:titleTextAppearance="@style/Toolbar.SmallTextAppearance" />
 
 </android.support.design.widget.AppBarLayout>

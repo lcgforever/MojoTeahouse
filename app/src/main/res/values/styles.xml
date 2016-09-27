@@ -10,24 +10,18 @@
         <item name="colorControlActivated">@color/accent</item>
         <item name="colorControlHighlight">@color/control_highlight</item>
         <item name="android:spinnerStyle">@style/Widget.AppCompat.Spinner.Underlined</item>
-        <item name="windowActionModeOverlay">true</item>
-        <item name="android:windowActionModeOverlay">true</item>
-        <item name="alertDialogStyle">@style/AlertDialogTheme</item>
-        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="android:alertDialogStyle">@style/AlertDialogTheme</item>
-        <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
-        <item name="actionModeStyle">@style/Style.ActionMode.Appreance</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="actionModeStyle">@style/Style.ActionMode.Appreance</item>
         <item name="android:alertDialogStyle">@style/AlertDialogTheme</item>
         <item name="android:alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowActionModeOverlay">true</item>
+        <item name="alertDialogStyle">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
     </style>
 
-    <style name="AppTheme.NoActionBar.TranslucentStatusBar" />
+    <style name="AppTheme.TranslucentStatusBar" />
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
@@ -42,6 +36,8 @@
     </style>
 
     <style name="AlertDialogTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
         <item name="colorAccent">@color/accent</item>
         <item name="android:windowTitleStyle">@style/TextAppearance.AppCompat.Title.DialogTitle
         </item>
@@ -61,6 +57,13 @@
     <style name="Toolbar.SmallTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:fontFamily">@string/roboto_medium</item>
+    </style>
+
+    <style name="Toolbar.LargeTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:singleLine">true</item>
         <item name="android:fontFamily">@string/roboto_medium</item>
     </style>

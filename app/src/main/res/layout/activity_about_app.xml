@@ -18,7 +18,7 @@
         app:titleTextAppearance="@style/Toolbar.SmallTextAppearance" />
 
     <FrameLayout
-        android:id="@+id/about_app_activity_content_frame"
+        android:id="@+id/about_app_content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

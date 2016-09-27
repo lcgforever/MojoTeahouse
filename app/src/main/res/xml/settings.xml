@@ -9,4 +9,8 @@
         android:key="@string/key_about_mojotea"
         android:title="@string/settings_activity_about_mojotea" />
 
+    <Preference
+        android:key="@string/key_sign_out"
+        android:title="@string/settings_activity_sign_out" />
+
 </PreferenceScreen>
