@@ -1,9 +1,11 @@
 package com.mojoteahouse.mojotea.fragment;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.view.View;
 
 import com.mojoteahouse.mojotea.R;
@@ -48,14 +50,15 @@ public class SettingsFragment extends PreferenceFragment
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        findPreference(getString(R.string.key_about_app))
-                .setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.key_about_app)).setOnPreferenceClickListener(this);
+        findPreference(getString(R.string.key_about_mojotea)).setOnPreferenceClickListener(this);
 
-        findPreference(getString(R.string.key_about_mojotea))
-                .setOnPreferenceClickListener(this);
-
-        findPreference(getString(R.string.key_sign_out))
-                .setOnPreferenceClickListener(this);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        if (sharedPreferences.contains(getString(R.string.pref_signed_in))) {
+            findPreference(getString(R.string.key_sign_out)).setOnPreferenceClickListener(this);
+        } else {
+            getPreferenceScreen().removePreference(findPreference(getString(R.string.key_sign_out)));
+        }
     }
 
     @Override

@@ -27,11 +27,13 @@
     <string name="login_forget_password_text">Forgot password?</string>
     <string name="login_sign_up_button_text"><u>New here? Sign Up!</u></string>
     <string name="login_sign_in_button_text"><u>Back to Sign In</u></string>
+    <string name="login_skip_button_text">Skip</string>
     <string name="login_email_format_incorrect_message">Email format is incorrect!</string>
     <string name="login_password_length_invalid_message">Password should be 6 or more characters!</string>
     <string name="login_confirm_password_incorrect_message">Two password should match!</string>
     <string name="login_sign_in_failed_message">Sign in failed: %s</string>
     <string name="login_sign_up_failed_message">Sign up failed: %s</string>
+    <string name="login_anonymous_sign_in_failed_message">An error occurred: %s</string>
     <string name="login_reset_password_email_sent_message">An email with password reset info has been sent to you!</string>
     <string name="login_signing_in_message">Signing in&#8230;</string>
     <string name="login_signing_up_message">Signing up&#8230;</string>
