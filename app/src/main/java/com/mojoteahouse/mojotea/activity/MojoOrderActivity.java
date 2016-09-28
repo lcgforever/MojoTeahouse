@@ -2,8 +2,10 @@ package com.mojoteahouse.mojotea.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityOptionsCompat;
@@ -45,8 +47,9 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
     private SwipeRefreshLayout swipeRefreshLayout;
     private RecyclerView recyclerView;
     private TextView noOrderText;
-    private OrderHistoryItemAdapter orderAdapter;
 
+    private OrderHistoryItemAdapter orderAdapter;
+    private SharedPreferences sharedPreferences;
     private ArrayList<Order> orderList;
     private ArrayList<OrderItem> savedOrderItemList;
 
@@ -68,6 +71,8 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
             orderList = new ArrayList<>();
             savedOrderItemList = getIntent().getParcelableArrayListExtra(EXTRA_SAVED_ORDER_ITEM_LIST);
         }
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -175,7 +180,8 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
     }
 
     private void loadOrderData() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order");
+        String userId = sharedPreferences.getString(getString(R.string.pref_user_id), "");
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order").child(userId);
         orderRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

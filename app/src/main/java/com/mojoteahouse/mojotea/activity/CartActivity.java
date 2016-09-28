@@ -37,6 +37,8 @@ public class CartActivity extends BaseActivity implements CartSummaryItemAdapter
 
     private Toolbar toolbar;
     private TextView totalPriceText;
+    private Button checkOutButton;
+
     private CartSummaryItemAdapter cartItemAdapter;
     private ActionMode actionMode;
     private MojoData mojoData;
@@ -82,8 +84,8 @@ public class CartActivity extends BaseActivity implements CartSummaryItemAdapter
         cartItemAdapter = new CartSummaryItemAdapter(this, orderItemList, this, this);
         recyclerView.setAdapter(cartItemAdapter);
 
-        Button checkoutButton = (Button) findViewById(R.id.bottom_action_button);
-        checkoutButton.setOnClickListener(this);
+        checkOutButton = (Button) findViewById(R.id.bottom_action_button);
+        checkOutButton.setOnClickListener(this);
 
         updatePriceText();
     }
@@ -160,6 +162,12 @@ public class CartActivity extends BaseActivity implements CartSummaryItemAdapter
                 }
                 break;
         }
+    }
+
+    @Override
+    void onStoreCloseStatusChanged() {
+        super.onStoreCloseStatusChanged();
+        checkOutButton.setEnabled(!storeClosed);
     }
 
     @Override

@@ -194,6 +194,12 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
     }
 
     @Override
+    void onStoreCloseStatusChanged() {
+        super.onStoreCloseStatusChanged();
+        placeOrderButton.setEnabled(!storeClosed && dateAndTimeErrorTextView.getVisibility() != View.VISIBLE);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.name_clear_button:
@@ -497,7 +503,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         if (order == null) {
             order = new Order();
             Date currentDate = new Date();
-            order.setId(String.valueOf(currentDate.getTime()));
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM dd yyyy, h:mm a", Locale.US);
             order.setOrderTime(simpleDateFormat.format(currentDate));
             order.setDeliverByTime(simpleDateFormat.format(deliverTime));
@@ -562,8 +567,11 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
     }
 
     private void saveOrderToRemoteAndFinish() {
-        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order");
-        orderRef.child(order.getId()).setValue(order, new DatabaseReference.CompletionListener() {
+        String userId = sharedPreferences.getString(getString(R.string.pref_user_id), "");
+        DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order").child(userId);
+        DatabaseReference newOrderRef = orderRef.push();
+        order.setId(newOrderRef.getKey());
+        newOrderRef.setValue(order, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 PlacingOrderDialogFragment.dismiss(getFragmentManager());

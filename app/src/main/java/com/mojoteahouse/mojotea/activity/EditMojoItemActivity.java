@@ -11,6 +11,8 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -99,6 +101,26 @@ public class EditMojoItemActivity extends BaseActivity implements View.OnClickLi
         outState.putParcelableArrayList(EXTRA_ALL_TOPPING_LIST, allToppingsList);
         outState.putParcelableArrayList(EXTRA_SELECTED_TOPPINGS, selectedToppings);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_mojo_item_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                cancelAndFinish();
+                break;
+
+            case R.id.action_add:
+                saveOrderItemAndFinish();
+                break;
+        }
+        return true;
     }
 
     @Override

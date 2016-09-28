@@ -54,7 +54,7 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
     private EditText noteEditText;
 
     private OrderItem orderItem;
-    private List<Topping> allToppingsList;
+    private ArrayList<Topping> allToppingsList;
     private int quantity;
     private double totalPrice;
     private double mojoItemPrice;
@@ -99,6 +99,13 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(EXTRA_ORDER_ITEM, orderItem);
+        outState.putParcelableArrayList(EXTRA_ALL_TOPPINGS_LIST, allToppingsList);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.cart_summary_action_mode_menu, menu);
         return true;
@@ -115,6 +122,12 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
                 DeleteCartItemDialogFragment.show(getFragmentManager());
                 break;
         }
+        return true;
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        cancelAndFinish();
         return true;
     }
 

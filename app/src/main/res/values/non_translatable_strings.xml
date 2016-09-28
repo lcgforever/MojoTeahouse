@@ -34,6 +34,9 @@
     <string name="pref_customer_zip" translatable="false">PREF_CUSTOMER_ZIP</string>
     <string name="pref_customer_phone" translatable="false">PREF_CUSTOMER_PHONE</string>
 
+    <!-- Notification Data -->
+    <string name="store_close_notification" translatable="false">storeClosed</string>
+
     <!-- Intent Filter -->
     <string name="mojo_message_intent_filter" translatable="false">MOJO_MESSAGE_INTENT_FILTER</string>
 

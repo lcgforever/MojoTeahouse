@@ -18,21 +18,15 @@ public class GCMMessageListenerService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.i(TAG, "GCM Message received");
 
-        RemoteMessage.Notification notification = remoteMessage.getNotification();
-        if (notification == null) {
-            Map<String, String> dataMap = remoteMessage.getData();
+        Map<String, String> dataMap = remoteMessage.getData();
+        if (dataMap != null) {
             Bundle data = new Bundle();
             for (Map.Entry<String, String> entry : dataMap.entrySet()) {
                 data.putString(entry.getKey(), entry.getValue());
             }
-        } else {
-            Log.e(TAG, "notification is: " + notification.getTitle() + "      " + notification.getBody());
+            Intent broadcastIntent = new Intent(getString(R.string.mojo_message_intent_filter));
+            broadcastIntent.putExtras(data);
+            sendBroadcast(broadcastIntent, null);
         }
-//        Map<String, String> dataMap = remoteMessage.getData();
-//        Bundle data = new Bundle();
-//        for (Map.Entry<String, String> entry : dataMap.entrySet()) {
-//            data.putString(entry.getKey(), entry.getValue());
-//        }
-//        sendBroadcast(new Intent(getString(R.string.mojo_message_intent_filter)), null);
     }
 }

@@ -46,7 +46,8 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/button_height"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
@@ -99,11 +100,13 @@
                     android:id="@+id/quantity_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="@string/quantity_edit_text_hint"
                     android:imeActionLabel="@string/action_done"
                     android:imeOptions="actionDone"
                     android:inputType="number"
                     android:lines="1"
-                    android:text="@string/quantity_initial_value" />
+                    android:text="@string/quantity_initial_value"
+                    android:textColorHint="@color/text_hint" />
 
             </ViewSwitcher>
 

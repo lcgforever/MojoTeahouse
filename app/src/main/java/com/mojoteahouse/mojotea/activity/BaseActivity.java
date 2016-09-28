@@ -6,8 +6,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 
 import com.mojoteahouse.mojotea.R;
+import com.mojoteahouse.mojotea.fragment.dialog.ClosedNowDialogFragment;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -34,11 +36,21 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
+    void onStoreCloseStatusChanged() {
+        if (storeClosed) {
+            ClosedNowDialogFragment.show(getFragmentManager());
+        }
+    }
+
     private class MojoMessageBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
+            String storeClosedStr = intent.getStringExtra(getString(R.string.store_close_notification));
+            if (!TextUtils.isEmpty(storeClosedStr)) {
+                storeClosed = Boolean.parseBoolean(storeClosedStr);
+                onStoreCloseStatusChanged();
+            }
         }
     }
 }

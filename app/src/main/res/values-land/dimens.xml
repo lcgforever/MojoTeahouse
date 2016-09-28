@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <dimen name="toolbar_large_height">192dp</dimen>
+    <dimen name="toolbar_large_height">150dp</dimen>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="splash_logo_margin_bottom">20dp</dimen>
 
 </resources>
