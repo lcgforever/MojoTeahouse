@@ -3,6 +3,8 @@ package com.mojoteahouse.mojotea.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
@@ -24,7 +26,7 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
     private String name;
     private String chineseName;
     private double price;
-    private String toppingIds;
+    private List<String> toppingIds;
     private String category;
     private boolean isNewMenu;
     private boolean isSoldOut;
@@ -39,10 +41,13 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
         name = menuDataMap.containsKey("name") ? menuDataMap.get("name").toString() : "";
         chineseName = menuDataMap.containsKey("chineseName") ? menuDataMap.get("chineseName").toString() : "";
         category = menuDataMap.containsKey("category") ? menuDataMap.get("category").toString() : "";
-        toppingIds = menuDataMap.containsKey("toppingIds") ? menuDataMap.get("toppingIds").toString() : "";
         price = menuDataMap.containsKey("price") ? Double.parseDouble(menuDataMap.get("price").toString()) : 0;
         isNewMenu = menuDataMap.containsKey("isNewMenu") && (boolean) menuDataMap.get("isNewMenu");
         isSoldOut = menuDataMap.containsKey("isSoldOut") && (boolean) menuDataMap.get("isSoldOut");
+        toppingIds = new ArrayList<>();
+        if (menuDataMap.containsKey("toppingIds")) {
+            toppingIds.addAll((List<String>) menuDataMap.get("toppingIds"));
+        }
     }
 
     private MojoMenu(Parcel in) {
@@ -51,7 +56,8 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
         name = in.readString();
         chineseName = in.readString();
         price = in.readDouble();
-        toppingIds = in.readString();
+        toppingIds = new ArrayList<>();
+        in.readStringList(toppingIds);
         category = in.readString();
         isNewMenu = in.readByte() != 0;
         isSoldOut = in.readByte() != 0;
@@ -69,7 +75,7 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
         dest.writeString(name);
         dest.writeString(chineseName);
         dest.writeDouble(price);
-        dest.writeString(toppingIds);
+        dest.writeStringList(toppingIds);
         dest.writeString(category);
         dest.writeByte((byte) (isNewMenu ? 1 : 0));
         dest.writeByte((byte) (isSoldOut ? 1 : 0));
@@ -115,7 +121,7 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
         return price;
     }
 
-    public String getToppingIds() {
+    public List<String> getToppingIds() {
         return toppingIds;
     }
 

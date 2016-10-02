@@ -191,12 +191,12 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
         updatePriceAndText();
         noteEditText.setText(orderItem.getNote());
 
-        String availableToppingIds = mojoMenu.getToppingIds();
-        if (TextUtils.isEmpty(availableToppingIds)) {
+        List<String> availableToppingIds = mojoMenu.getToppingIds();
+        if (availableToppingIds.isEmpty()) {
             noToppingTextView.setVisibility(View.VISIBLE);
         } else {
             List<Topping> availableToppingList = new ArrayList<>();
-            for (String toppingId : availableToppingIds.split(TOPPING_SPLIT_SYMBOL)) {
+            for (String toppingId : availableToppingIds) {
                 availableToppingList.add(DataUtil.getToppingById(allToppingsList, toppingId));
             }
             if (availableToppingList.isEmpty()) {

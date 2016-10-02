@@ -176,12 +176,12 @@ public class EditMojoItemActivity extends BaseActivity implements View.OnClickLi
         }
         updatePriceAndText();
 
-        String availableToppingIds = mojoMenu.getToppingIds();
-        if (TextUtils.isEmpty(availableToppingIds)) {
+        List<String> availableToppingIds = mojoMenu.getToppingIds();
+        if (availableToppingIds.isEmpty()) {
             noToppingTextView.setVisibility(View.VISIBLE);
         } else {
             List<Topping> availableToppingsList = new ArrayList<>();
-            for (String toppingId : availableToppingIds.split(TOPPING_SPLIT_SYMBOL)) {
+            for (String toppingId : availableToppingIds) {
                 availableToppingsList.add(DataUtil.getToppingById(allToppingsList, toppingId));
             }
             if (availableToppingsList.isEmpty()) {
