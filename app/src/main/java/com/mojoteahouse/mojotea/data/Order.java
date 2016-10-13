@@ -2,9 +2,11 @@ package com.mojoteahouse.mojotea.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +21,7 @@ public class Order implements Parcelable, Comparable<Order> {
     private String customerName;
     private String customerAddress;
     private String customerPhoneNumber;
+    private String customerZip;
     private String customerNote;
     private String status;
     private List<OrderItem> orderItemList;
@@ -28,12 +31,13 @@ public class Order implements Parcelable, Comparable<Order> {
         orderItemList = new ArrayList<>();
     }
 
-    public Order(Map<String, Object> orderDataMap) {
+    public Order(MojoData mojoData, Map<String, Object> orderDataMap) {
         id = orderDataMap.get("id").toString();
         orderTime = orderDataMap.get("orderTime").toString();
         deliverByTime = orderDataMap.get("deliverByTime").toString();
         customerName = orderDataMap.get("customerName").toString();
         customerAddress = orderDataMap.get("customerAddress").toString();
+        customerZip = orderDataMap.get("customerZip").toString();
         customerPhoneNumber = orderDataMap.get("customerPhoneNumber").toString();
         customerNote = orderDataMap.get("customerNote").toString();
         totalQuantity = Integer.parseInt(orderDataMap.get("totalQuantity").toString());
@@ -47,7 +51,7 @@ public class Order implements Parcelable, Comparable<Order> {
         if (orderDataMap.containsKey("orderItemList")) {
             List<Map<String, Object>> orderItemDataList = (List<Map<String, Object>>) orderDataMap.get("orderItemList");
             for (Map<String, Object> orderItemData : orderItemDataList) {
-                orderItemList.add(new OrderItem(orderItemData));
+                orderItemList.add(new OrderItem(mojoData, orderItemData));
             }
         }
     }
@@ -61,6 +65,7 @@ public class Order implements Parcelable, Comparable<Order> {
         totalPrice = in.readDouble();
         customerName = in.readString();
         customerAddress = in.readString();
+        customerZip = in.readString();
         customerPhoneNumber = in.readString();
         customerNote = in.readString();
         status = in.readString();
@@ -94,6 +99,7 @@ public class Order implements Parcelable, Comparable<Order> {
         dest.writeDouble(totalPrice);
         dest.writeString(customerName);
         dest.writeString(customerAddress);
+        dest.writeString(customerZip);
         dest.writeString(customerPhoneNumber);
         dest.writeString(customerNote);
         dest.writeString(status);
@@ -101,8 +107,33 @@ public class Order implements Parcelable, Comparable<Order> {
     }
 
     @Override
-    public int compareTo(Order another) {
+    public int compareTo(@Nullable Order another) {
+        if (another == null) {
+            return -1;
+        }
         return another.getOrderTime().compareTo(orderTime);
+    }
+
+    public Map<String, Object> getDataMap() {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("id", id);
+        dataMap.put("orderTime", orderTime);
+        dataMap.put("deliverByTime", deliverByTime);
+        dataMap.put("completeOrderList", completeOrderList);
+        dataMap.put("totalQuantity", totalQuantity);
+        dataMap.put("totalPrice", totalPrice);
+        dataMap.put("customerName", customerName);
+        dataMap.put("customerAddress", customerAddress);
+        dataMap.put("customerZip", customerZip);
+        dataMap.put("customerPhoneNumber", customerPhoneNumber);
+        dataMap.put("customerNote", customerNote);
+        dataMap.put("status", status);
+        List<Map<String, Object>> orderItemDataMaps = new ArrayList<>();
+        for (OrderItem orderItem : orderItemList) {
+            orderItemDataMaps.add(orderItem.getDataMap());
+        }
+        dataMap.put("orderItemList", orderItemDataMaps);
+        return dataMap;
     }
 
     public String getId() {
@@ -167,6 +198,14 @@ public class Order implements Parcelable, Comparable<Order> {
 
     public void setCustomerAddress(String customerAddress) {
         this.customerAddress = customerAddress;
+    }
+
+    public String getCustomerZip() {
+        return customerZip;
+    }
+
+    public void setCustomerZip(String customerZip) {
+        this.customerZip = customerZip;
     }
 
     public String getCustomerPhoneNumber() {

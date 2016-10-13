@@ -29,10 +29,10 @@ import android.widget.ViewSwitcher;
 
 import com.mojoteahouse.mojotea.MojoTeaApp;
 import com.mojoteahouse.mojotea.R;
+import com.mojoteahouse.mojotea.data.MojoData;
 import com.mojoteahouse.mojotea.data.MojoMenu;
 import com.mojoteahouse.mojotea.data.OrderItem;
 import com.mojoteahouse.mojotea.data.Topping;
-import com.mojoteahouse.mojotea.util.DataUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -42,25 +42,24 @@ import java.util.List;
 public class EditMojoItemActivity extends BaseActivity implements View.OnClickListener {
 
     public static final String EXTRA_ORDER_ITEM = "EXTRA_ORDER_ITEM";
+    private static final String EXTRA_MOJO_DATA = "EXTRA_MOJO_DATA";
     private static final String EXTRA_MOJO_MENU = "EXTRA_MOJO_MENU";
-    private static final String EXTRA_ALL_TOPPING_LIST = "EXTRA_ALL_TOPPING_LIST";
     private static final String EXTRA_SELECTED_TOPPINGS = "EXTRA_SELECTED_TOPPINGS";
-    private static final String TOPPING_SPLIT_SYMBOL = ",";
 
     private Button addToCartButton;
     private EditText noteEditText;
 
+    private MojoData mojoData;
     private MojoMenu mojoMenu;
-    private ArrayList<Topping> allToppingsList;
     private ArrayList<Topping> selectedToppings;
     private int quantity;
     private double totalPrice;
     private double toppingPrice;
 
-    public static void startForResult(Activity activity, MojoMenu mojoMenu, ArrayList<Topping> toppingList) {
+    public static void startForResult(Activity activity, MojoData mojoData, MojoMenu mojoMenu) {
         Intent intent = new Intent(activity, EditMojoItemActivity.class);
+        intent.putExtra(EXTRA_MOJO_DATA, mojoData);
         intent.putExtra(EXTRA_MOJO_MENU, mojoMenu);
-        intent.putExtra(EXTRA_ALL_TOPPING_LIST, toppingList);
         activity.startActivityForResult(intent, MojoTeaApp.EDIT_MOJO_MENU_REQUEST_CODE);
     }
 
@@ -78,12 +77,12 @@ public class EditMojoItemActivity extends BaseActivity implements View.OnClickLi
         }
 
         if (savedInstanceState != null) {
+            mojoData = savedInstanceState.getParcelable(EXTRA_MOJO_DATA);
             mojoMenu = savedInstanceState.getParcelable(EXTRA_MOJO_MENU);
-            allToppingsList = savedInstanceState.getParcelableArrayList(EXTRA_ALL_TOPPING_LIST);
             selectedToppings = savedInstanceState.getParcelableArrayList(EXTRA_SELECTED_TOPPINGS);
         } else {
+            mojoData = getIntent().getParcelableExtra(EXTRA_MOJO_DATA);
             mojoMenu = getIntent().getParcelableExtra(EXTRA_MOJO_MENU);
-            allToppingsList = getIntent().getParcelableArrayListExtra(EXTRA_ALL_TOPPING_LIST);
             selectedToppings = new ArrayList<>();
         }
 
@@ -97,8 +96,8 @@ public class EditMojoItemActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(EXTRA_MOJO_DATA, mojoData);
         outState.putParcelable(EXTRA_MOJO_MENU, mojoMenu);
-        outState.putParcelableArrayList(EXTRA_ALL_TOPPING_LIST, allToppingsList);
         outState.putParcelableArrayList(EXTRA_SELECTED_TOPPINGS, selectedToppings);
         super.onSaveInstanceState(outState);
     }
@@ -182,7 +181,7 @@ public class EditMojoItemActivity extends BaseActivity implements View.OnClickLi
         } else {
             List<Topping> availableToppingsList = new ArrayList<>();
             for (String toppingId : availableToppingIds) {
-                availableToppingsList.add(DataUtil.getToppingById(allToppingsList, toppingId));
+                availableToppingsList.add(mojoData.getToppingById(toppingId));
             }
             if (availableToppingsList.isEmpty()) {
                 noToppingTextView.setVisibility(View.VISIBLE);

@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.mojoteahouse.mojotea.R;
 import com.mojoteahouse.mojotea.adapter.OrderHistoryItemAdapter;
+import com.mojoteahouse.mojotea.data.MojoData;
 import com.mojoteahouse.mojotea.data.Order;
 import com.mojoteahouse.mojotea.data.OrderItem;
 
@@ -37,6 +38,7 @@ import java.util.Map;
 
 public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemAdapter.OrderHistoryClickListener, NavigationView.OnNavigationItemSelectedListener {
 
+    private static final String EXTRA_MOJO_DATA = "EXTRA_MOJO_DATA";
     private static final String EXTRA_ORDER_LIST = "EXTRA_ORDER_LIST";
     private static final String EXTRA_SAVED_ORDER_ITEM_LIST = "EXTRA_SAVED_ORDER_ITEM_LIST";
 
@@ -50,11 +52,13 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
 
     private OrderHistoryItemAdapter orderAdapter;
     private SharedPreferences sharedPreferences;
+    private MojoData mojoData;
     private ArrayList<Order> orderList;
     private ArrayList<OrderItem> savedOrderItemList;
 
-    public static void start(Activity activity, ArrayList<OrderItem> savedOrderItemList, Bundle optionsBundle) {
+    public static void start(Activity activity, MojoData mojoData, ArrayList<OrderItem> savedOrderItemList, Bundle optionsBundle) {
         Intent intent = new Intent(activity, MojoOrderActivity.class);
+        intent.putExtra(EXTRA_MOJO_DATA, mojoData);
         intent.putExtra(EXTRA_SAVED_ORDER_ITEM_LIST, savedOrderItemList);
         activity.startActivity(intent, optionsBundle);
     }
@@ -65,10 +69,12 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
         setContentView(R.layout.activity_mojo_order);
 
         if (savedInstanceState != null) {
+            mojoData = savedInstanceState.getParcelable(EXTRA_MOJO_DATA);
             orderList = savedInstanceState.getParcelableArrayList(EXTRA_ORDER_LIST);
             savedOrderItemList = savedInstanceState.getParcelableArrayList(EXTRA_SAVED_ORDER_ITEM_LIST);
         } else {
             orderList = new ArrayList<>();
+            mojoData = getIntent().getParcelableExtra(EXTRA_MOJO_DATA);
             savedOrderItemList = getIntent().getParcelableArrayListExtra(EXTRA_SAVED_ORDER_ITEM_LIST);
         }
 
@@ -138,6 +144,7 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
+        outState.putParcelable(EXTRA_MOJO_DATA, mojoData);
         outState.putParcelableArrayList(EXTRA_ORDER_LIST, orderList);
         outState.putParcelableArrayList(EXTRA_SAVED_ORDER_ITEM_LIST, savedOrderItemList);
         super.onSaveInstanceState(outState);
@@ -190,7 +197,7 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
                     Map<String, Map<String, Object>> orderMap = (Map<String, Map<String, Object>>) dataSnapshot.getValue();
                     orderList.clear();
                     for (Map<String, Object> orderData : orderMap.values()) {
-                        orderList.add(new Order(orderData));
+                        orderList.add(new Order(mojoData, orderData));
                     }
                     if (orderList.isEmpty()) {
                         recyclerView.setVisibility(View.GONE);
@@ -200,6 +207,9 @@ public class MojoOrderActivity extends BaseActivity implements OrderHistoryItemA
                         recyclerView.setVisibility(View.VISIBLE);
                         orderAdapter.updateOrderList(orderList);
                     }
+                } else {
+                    recyclerView.setVisibility(View.GONE);
+                    noOrderText.setVisibility(View.VISIBLE);
                 }
             }
 

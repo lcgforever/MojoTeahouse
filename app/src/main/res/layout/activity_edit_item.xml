@@ -85,12 +85,14 @@
                 android:id="@+id/quantity_view_switcher"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="-4dp"
+                android:layout_marginRight="-4dp"
+                android:layout_marginTop="4dp"
                 android:animateLayoutChanges="true"
                 android:focusable="true"
                 android:focusableInTouchMode="true">
 
-                <android.support.v7.widget.AppCompatSpinner
+                <Spinner
                     android:id="@+id/quantity_spinner"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -106,7 +108,8 @@
                     android:inputType="number"
                     android:lines="1"
                     android:text="@string/quantity_initial_value"
-                    android:textColorHint="@color/text_hint" />
+                    android:textColorHint="@color/text_hint"
+                    android:textSize="16sp" />
 
             </ViewSwitcher>
 
@@ -132,8 +135,6 @@
                 android:id="@+id/topping_container"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:animateLayoutChanges="true"
                 android:orientation="vertical" />

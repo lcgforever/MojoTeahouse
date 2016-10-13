@@ -30,11 +30,11 @@ import android.widget.ViewSwitcher;
 
 import com.mojoteahouse.mojotea.MojoTeaApp;
 import com.mojoteahouse.mojotea.R;
+import com.mojoteahouse.mojotea.data.MojoData;
 import com.mojoteahouse.mojotea.data.MojoMenu;
 import com.mojoteahouse.mojotea.data.OrderItem;
 import com.mojoteahouse.mojotea.data.Topping;
 import com.mojoteahouse.mojotea.fragment.dialog.DeleteCartItemDialogFragment;
-import com.mojoteahouse.mojotea.util.DataUtil;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -46,24 +46,23 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
 
     public static final String EXTRA_SHOULD_DELETE = "EXTRA_SHOULD_DELETE";
     public static final String EXTRA_ORDER_ITEM = "EXTRA_ORDER_ITEM";
-    private static final String EXTRA_ALL_TOPPINGS_LIST = "EXTRA_ALL_TOPPINGS_LIST";
-    private static final String TOPPING_SPLIT_SYMBOL = ",";
+    private static final String EXTRA_MOJO_DATA = "EXTRA_MOJO_DATA";
     private static final int SPINNER_MAX_VALUE = 5;
 
     private Button editDoneButton;
     private EditText noteEditText;
 
     private OrderItem orderItem;
-    private ArrayList<Topping> allToppingsList;
+    private MojoData mojoData;
     private int quantity;
     private double totalPrice;
     private double mojoItemPrice;
     private double selectedToppingPrice;
 
-    public static void startForResult(Activity activity, OrderItem orderItem, ArrayList<Topping> allToppingsList) {
+    public static void startForResult(Activity activity, OrderItem orderItem, MojoData mojoData) {
         Intent intent = new Intent(activity, EditCartItemActivity.class);
         intent.putExtra(EXTRA_ORDER_ITEM, orderItem);
-        intent.putExtra(EXTRA_ALL_TOPPINGS_LIST, allToppingsList);
+        intent.putExtra(EXTRA_MOJO_DATA, mojoData);
         activity.startActivityForResult(intent, MojoTeaApp.EDIT_CART_ITEM_REQUEST_CODE);
     }
 
@@ -82,10 +81,10 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
 
         if (savedInstanceState != null) {
             orderItem = savedInstanceState.getParcelable(EXTRA_ORDER_ITEM);
-            allToppingsList = savedInstanceState.getParcelableArrayList(EXTRA_ALL_TOPPINGS_LIST);
+            mojoData = savedInstanceState.getParcelable(EXTRA_MOJO_DATA);
         } else {
             orderItem = getIntent().getParcelableExtra(EXTRA_ORDER_ITEM);
-            allToppingsList = getIntent().getParcelableArrayListExtra(EXTRA_ALL_TOPPINGS_LIST);
+            mojoData = getIntent().getParcelableExtra(EXTRA_MOJO_DATA);
         }
 
         CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.collapse_layout);
@@ -101,7 +100,7 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelable(EXTRA_ORDER_ITEM, orderItem);
-        outState.putParcelableArrayList(EXTRA_ALL_TOPPINGS_LIST, allToppingsList);
+        outState.putParcelable(EXTRA_MOJO_DATA, mojoData);
         super.onSaveInstanceState(outState);
     }
 
@@ -197,7 +196,7 @@ public class EditCartItemActivity extends AppCompatActivity implements View.OnCl
         } else {
             List<Topping> availableToppingList = new ArrayList<>();
             for (String toppingId : availableToppingIds) {
-                availableToppingList.add(DataUtil.getToppingById(allToppingsList, toppingId));
+                availableToppingList.add(mojoData.getToppingById(toppingId));
             }
             if (availableToppingList.isEmpty()) {
                 noToppingTextView.setVisibility(View.VISIBLE);

@@ -88,7 +88,7 @@ public class MojoMenuActivity extends BaseActivity implements NavigationView.OnN
                 if (navigationView.getMenu().findItem(R.id.nav_orders).isChecked()) {
                     ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                             MojoMenuActivity.this, toolbar, getString(R.string.toolbar_transition));
-                    MojoOrderActivity.start(MojoMenuActivity.this, orderItemList, optionsCompat.toBundle());
+                    MojoOrderActivity.start(MojoMenuActivity.this, mojoData, orderItemList, optionsCompat.toBundle());
                 } else if (navigationView.getMenu().findItem(R.id.nav_settings).isChecked()) {
                     SettingsActivity.start(MojoMenuActivity.this);
                 }
@@ -137,6 +137,7 @@ public class MojoMenuActivity extends BaseActivity implements NavigationView.OnN
                             mojoMenuList.add(new MojoMenu((Map<String, Object>) menuData));
                         }
                         availableZipList.addAll((List<String>) mojoDataMap.get("zip"));
+                        Collections.sort(availableZipList);
 
                         mojoData.setMojoMenuList(mojoMenuList);
                         mojoData.setToppingList(toppingList);

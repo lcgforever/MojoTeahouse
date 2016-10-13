@@ -2,8 +2,10 @@ package com.mojoteahouse.mojotea.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,23 +23,20 @@ public class OrderItem implements Parcelable, Comparable<OrderItem> {
         selectedToppings = new ArrayList<>();
     }
 
-    public OrderItem(Map<String, Object> orderItemDataMap) {
+    public OrderItem(MojoData mojoData, Map<String, Object> orderItemDataMap) {
         id = orderItemDataMap.get("id").toString();
+        String mojoMenuId = orderItemDataMap.get("mojoMenuId").toString();
+        mojoMenu = mojoData.getMojoMenuById(mojoMenuId);
         quantity = Integer.parseInt(orderItemDataMap.get("quantity").toString());
         totalPrice = Double.parseDouble(orderItemDataMap.get("totalPrice").toString());
         selectedToppingPrice = orderItemDataMap.containsKey("selectedToppingPrice")
                 ? Double.parseDouble(orderItemDataMap.get("selectedToppingPrice").toString()) : 0;
         note = orderItemDataMap.containsKey("note") ? orderItemDataMap.get("note").toString() : "";
-        if (orderItemDataMap.containsKey("mojoMenu")) {
-            mojoMenu = new MojoMenu((Map<String, Object>) orderItemDataMap.get("mojoMenu"));
-        } else {
-            mojoMenu = new MojoMenu();
-        }
         selectedToppings = new ArrayList<>();
-        if (orderItemDataMap.containsKey("selectedToppings")) {
-            List<Map<String, Object>> toppingDataList = (List<Map<String, Object>>) orderItemDataMap.get("selectedToppings");
-            for (Map<String, Object> toppingData : toppingDataList) {
-                selectedToppings.add(new Topping(toppingData));
+        if (orderItemDataMap.containsKey("selectedToppingIds")) {
+            List<String> selectedToppingIdList = (List<String>) orderItemDataMap.get("selectedToppingIds");
+            for (String toppingId : selectedToppingIdList) {
+                selectedToppings.add(mojoData.getToppingById(toppingId));
             }
         }
     }
@@ -81,8 +80,27 @@ public class OrderItem implements Parcelable, Comparable<OrderItem> {
     }
 
     @Override
-    public int compareTo(OrderItem another) {
+    public int compareTo(@Nullable OrderItem another) {
+        if (another == null) {
+            return -1;
+        }
         return id.compareTo(another.getId());
+    }
+
+    Map<String, Object> getDataMap() {
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("id", id);
+        dataMap.put("mojoMenuId", mojoMenu.getId());
+        dataMap.put("totalPrice", totalPrice);
+        dataMap.put("quantity", quantity);
+        List<String> selectedToppingIds = new ArrayList<>();
+        for (Topping topping : selectedToppings) {
+            selectedToppingIds.add(topping.getId());
+        }
+        dataMap.put("selectedToppingIds", selectedToppingIds);
+        dataMap.put("selectedToppingPrice", selectedToppingPrice);
+        dataMap.put("note", note);
+        return dataMap;
     }
 
     public String getId() {

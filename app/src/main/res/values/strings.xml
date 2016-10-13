@@ -128,7 +128,7 @@
     <string name="deliver_business_time_error_message">Please select deliver time within our business time: 12 pm to 9 pm.</string>
     <string name="deliver_date_error_message">Please select deliver time within two days.</string>
     <string name="accept_payment_text">We accept:\nCash\nCredit cards ($.50 transaction fee)\nVenmo (@Mojo-Teahouse)</string>
-    <string name="place_order_button_text">Place Order</string>
+    <string name="place_order_button_text">Place Order ($%.2f)</string>
     <string name="place_order_no_item_error_message">There is nothing in your cart!</string>
     <string name="place_order_error_message">An error occurred when placing order. Please try again!</string>
     <string name="place_order_dialog_title">Place Order Confirmation</string>
@@ -157,6 +157,7 @@
 
     <!-- View Order Activity -->
     <string name="view_order_toolbar_title">Order</string>
+    <string name="view_order_item_note_hint">Note</string>
 
     <!-- Closed Now Dialog -->
     <string name="prepare_for_food_text">&#8230;and are preparing for more food!</string>

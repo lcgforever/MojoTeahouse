@@ -70,4 +70,22 @@ public class MojoData implements Parcelable {
     public void setAvailableZipList(ArrayList<String> availableZipList) {
         this.availableZipList = availableZipList;
     }
+
+    public MojoMenu getMojoMenuById(String mojoMenuId) {
+        for (MojoMenu mojoMenu : mojoMenuList) {
+            if (mojoMenu.getId().equals(mojoMenuId)) {
+                return mojoMenu;
+            }
+        }
+        return null;
+    }
+
+    public Topping getToppingById(String toppingId) {
+        for (Topping topping : toppingList) {
+            if (toppingId.equals(topping.getId())) {
+                return topping;
+            }
+        }
+        return null;
+    }
 }

@@ -2,6 +2,7 @@ package com.mojoteahouse.mojotea.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,10 @@ public class MojoMenu implements Parcelable, Comparable<MojoMenu> {
     }
 
     @Override
-    public int compareTo(MojoMenu another) {
+    public int compareTo(@Nullable MojoMenu another) {
+        if (another == null) {
+            return -1;
+        }
         if (isSoldOut == another.isSoldOut()) {
             if (isNewMenu == another.isNewMenu()) {
                 if (name == null) {

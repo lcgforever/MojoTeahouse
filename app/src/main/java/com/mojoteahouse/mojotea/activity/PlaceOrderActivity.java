@@ -23,10 +23,13 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -41,6 +44,7 @@ import com.mojoteahouse.mojotea.data.OrderItem;
 import com.mojoteahouse.mojotea.data.Topping;
 import com.mojoteahouse.mojotea.fragment.dialog.ConfirmOrderDialogFragment;
 import com.mojoteahouse.mojotea.fragment.dialog.PlacingOrderDialogFragment;
+import com.mojoteahouse.mojotea.util.DateUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -66,16 +70,13 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
     private CoordinatorLayout coordinatorLayout;
     private TextInputLayout nameTextLayout;
     private TextInputLayout addressTextLayout;
-    private TextInputLayout zipTextLayout;
     private TextInputLayout phoneTextLayout;
     private EditText nameEditText;
     private EditText addressEditText;
-    private EditText zipEditText;
     private EditText phoneEditText;
     private EditText noteEditText;
     private ImageButton clearNameButton;
     private ImageButton clearAddressButton;
-    private ImageButton clearZipButton;
     private ImageButton clearPhoneButton;
     private ImageButton clearNoteButton;
     private Button dateAndTimeButton;
@@ -140,27 +141,52 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinator_container);
         nameTextLayout = (TextInputLayout) findViewById(R.id.name_edit_text_layout);
         addressTextLayout = (TextInputLayout) findViewById(R.id.address_edit_text_layout);
-        zipTextLayout = (TextInputLayout) findViewById(R.id.zip_edit_text_layout);
         phoneTextLayout = (TextInputLayout) findViewById(R.id.phone_edit_text_layout);
         nameEditText = (EditText) findViewById(R.id.name_edit_text);
         addressEditText = (EditText) findViewById(R.id.address_edit_text);
-        zipEditText = (EditText) findViewById(R.id.zip_edit_text);
         phoneEditText = (EditText) findViewById(R.id.phone_edit_text);
         noteEditText = (EditText) findViewById(R.id.note_edit_text);
         clearNameButton = (ImageButton) findViewById(R.id.name_clear_button);
         clearAddressButton = (ImageButton) findViewById(R.id.address_clear_button);
-        clearZipButton = (ImageButton) findViewById(R.id.zip_clear_button);
         clearPhoneButton = (ImageButton) findViewById(R.id.phone_clear_button);
         clearNoteButton = (ImageButton) findViewById(R.id.note_clear_button);
         dateAndTimeButton = (Button) findViewById(R.id.date_and_time_button);
         dateAndTimeErrorTextView = (TextView) findViewById(R.id.date_and_time_error_text);
         placeOrderButton = (Button) findViewById(R.id.bottom_action_button);
+        Spinner zipSpinner = (Spinner) findViewById(R.id.zip_spinner);
 
         setupEditTexts();
 
+        double totalPrice = 0;
+        for (OrderItem orderItem : orderItemList) {
+            totalPrice += orderItem.getTotalPrice();
+        }
+        placeOrderButton.setText(String.format(getString(R.string.place_order_button_text), totalPrice));
+
+        customerZip = sharedPreferences.getString(getString(R.string.pref_customer_zip), mojoData.getAvailableZipList().get(0));
+        final ArrayAdapter<String> zipAdapter = new ArrayAdapter<>(this, R.layout.layout_simple_spinner_item, mojoData.getAvailableZipList());
+        zipAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        zipSpinner.setAdapter(zipAdapter);
+        for (int i = 0; i < zipAdapter.getCount(); i++) {
+            if (zipAdapter.getItem(i).equals(customerZip)) {
+                zipSpinner.setSelection(i);
+                break;
+            }
+        }
+        zipSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                customerZip = zipAdapter.getItem(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                customerZip = zipAdapter.getItem(0);
+            }
+        });
+
         clearNameButton.setOnClickListener(this);
         clearAddressButton.setOnClickListener(this);
-        clearZipButton.setOnClickListener(this);
         clearPhoneButton.setOnClickListener(this);
         clearNoteButton.setOnClickListener(this);
         dateAndTimeButton.setOnClickListener(this);
@@ -212,11 +238,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                 addressTextLayout.setError(null);
                 break;
 
-            case R.id.zip_clear_button:
-                zipEditText.setText("");
-                zipTextLayout.setError(null);
-                break;
-
             case R.id.phone_clear_button:
                 phoneEditText.setText("");
                 phoneTextLayout.setError(null);
@@ -257,7 +278,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
     private void setupEditTexts() {
         nameTextLayout.setErrorEnabled(true);
         addressTextLayout.setErrorEnabled(true);
-        zipTextLayout.setErrorEnabled(true);
         phoneTextLayout.setErrorEnabled(true);
 
         nameEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -294,7 +314,7 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    zipEditText.requestFocus();
+                    phoneEditText.requestFocus();
                     return true;
                 }
                 return false;
@@ -315,36 +335,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
             public void afterTextChanged(Editable s) {
                 addressTextLayout.setError(null);
                 clearAddressButton.setVisibility(TextUtils.isEmpty(s)
-                        ? View.GONE
-                        : View.VISIBLE);
-            }
-        });
-
-        zipEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
-                    phoneEditText.requestFocus();
-                    return true;
-                }
-                return false;
-            }
-        });
-        zipEditText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                zipTextLayout.setError(null);
-                clearZipButton.setVisibility(TextUtils.isEmpty(s)
                         ? View.GONE
                         : View.VISIBLE);
             }
@@ -374,7 +364,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
 
         nameEditText.setText(sharedPreferences.getString(getString(R.string.pref_customer_name), ""));
         addressEditText.setText(sharedPreferences.getString(getString(R.string.pref_customer_address), ""));
-        zipEditText.setText(sharedPreferences.getString(getString(R.string.pref_customer_zip), ""));
         phoneEditText.setText(sharedPreferences.getString(getString(R.string.pref_customer_phone), ""));
     }
 
@@ -391,11 +380,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         Editable address = addressEditText.getText();
         if (TextUtils.isEmpty(address) || address.length() < 10) {
             addressTextLayout.setError(getString(R.string.address_error_message));
-            return false;
-        }
-        Editable zip = zipEditText.getText();
-        if (TextUtils.isEmpty(zip) || !isZipValid(zip.toString())) {
-            zipTextLayout.setError(getString(R.string.zip_error_message));
             return false;
         }
         Editable phone = phoneEditText.getText();
@@ -503,17 +487,16 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         if (order == null) {
             order = new Order();
             Date currentDate = new Date();
-            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE, MMM dd yyyy, h:mm a", Locale.US);
-            order.setOrderTime(simpleDateFormat.format(currentDate));
-            order.setDeliverByTime(simpleDateFormat.format(deliverTime));
+            order.setOrderTime(DateUtil.dateToString(currentDate));
+            order.setDeliverByTime(DateUtil.dateToString(deliverTime));
             order.setCustomerName(customerName);
-            order.setCustomerAddress(String.format(getString(R.string.customer_address_format), customerAddress, customerZip));
+            order.setCustomerAddress(customerAddress);
+            order.setCustomerZip(customerZip);
             order.setCustomerPhoneNumber(customerPhoneNumber);
             order.setCustomerNote(customerNote);
             order.setTotalQuantity(totalQuantity);
             double totalPrice = 0;
             List<String> completeOrderList = new ArrayList<>();
-            List<Topping> selectedToppingList = new ArrayList<>();
             StringBuilder stringBuilder;
             OrderItem orderItem;
             for (int i = 0; i < orderItemList.size(); i++) {
@@ -522,7 +505,7 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
                 stringBuilder = new StringBuilder();
                 stringBuilder.append(orderItem.getMojoMenu().getName())
                         .append(NAME_SPLIT_SYMBOL);
-                selectedToppingList.addAll(orderItem.getSelectedToppings());
+                List<Topping> selectedToppingList = orderItem.getSelectedToppings();
                 for (int j = 0; j < selectedToppingList.size(); j++) {
                     if (j > 0) {
                         stringBuilder.append(TOPPING_SPLIT_SYMBOL);
@@ -555,7 +538,6 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         deliverTime = selectedDeliverTime.getTime();
         customerName = (nameEditText.getText() == null ? "" : nameEditText.getText().toString());
         customerAddress = (addressEditText.getText() == null ? "" : addressEditText.getText().toString());
-        customerZip = (zipEditText.getText() == null ? "" : zipEditText.getText().toString());
         customerPhoneNumber = (phoneEditText.getText() == null ? "" : phoneEditText.getText().toString());
         customerNote = (noteEditText.getText() == null ? "" : noteEditText.getText().toString());
         sharedPreferences.edit()
@@ -571,7 +553,7 @@ public class PlaceOrderActivity extends BaseActivity implements View.OnClickList
         DatabaseReference orderRef = FirebaseDatabase.getInstance().getReference().child("order").child(userId);
         DatabaseReference newOrderRef = orderRef.push();
         order.setId(newOrderRef.getKey());
-        newOrderRef.setValue(order, new DatabaseReference.CompletionListener() {
+        newOrderRef.setValue(order.getDataMap(), new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                 PlacingOrderDialogFragment.dismiss(getFragmentManager());

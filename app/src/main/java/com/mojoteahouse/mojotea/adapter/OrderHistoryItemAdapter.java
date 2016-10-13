@@ -10,8 +10,10 @@ import android.widget.TextView;
 import com.mojoteahouse.mojotea.R;
 import com.mojoteahouse.mojotea.activity.PlaceOrderActivity;
 import com.mojoteahouse.mojotea.data.Order;
+import com.mojoteahouse.mojotea.util.DateUtil;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -24,7 +26,8 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
     private String orderSummaryFormat;
     private String orderPriceFormat;
     private String todayString;
-    private SimpleDateFormat simpleDateFormat;
+    private SimpleDateFormat fullDateFormat;
+    private SimpleDateFormat hourFormat;
     private OrderHistoryClickListener orderHistoryClickListener;
 
     public interface OrderHistoryClickListener {
@@ -38,7 +41,8 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
         orderSummaryFormat = context.getString(R.string.order_summary_additional_count_format);
         orderPriceFormat = context.getString(R.string.price_format);
         todayString = context.getString(R.string.today_text);
-        simpleDateFormat = new SimpleDateFormat("MMM dd yyyy", Locale.US);
+        fullDateFormat = new SimpleDateFormat("EEE, MMM dd yyyy, h:mm a", Locale.getDefault());
+        hourFormat = new SimpleDateFormat("h:mm a", Locale.getDefault());
         orderHistoryClickListener = listener;
     }
 
@@ -53,10 +57,12 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
         Order order = orderList.get(position);
 
         String orderTimeString = order.getOrderTime();
-        String[] dateStrings = orderTimeString.split(", ");
+        Date orderTimeDate = DateUtil.stringToDate(orderTimeString);
         Date today = new Date();
-        if (dateStrings[1].equals(simpleDateFormat.format(today))) {
-            orderTimeString = todayString + " " + dateStrings[2];
+        if (isSameDay(orderTimeDate, today)) {
+            orderTimeString = todayString + " " + hourFormat.format(orderTimeDate);
+        } else {
+            orderTimeString = fullDateFormat.format(orderTimeDate);
         }
         holder.orderTimeText.setText(orderTimeString);
         holder.orderStatusText.setText(order.getStatus());
@@ -93,6 +99,14 @@ public class OrderHistoryItemAdapter extends RecyclerView.Adapter<OrderHistoryIt
             this.orderList.addAll(orderList);
             notifyDataSetChanged();
         }
+    }
+
+    private boolean isSameDay(Date d1, Date d2) {
+        Calendar c1 = Calendar.getInstance(), c2 = Calendar.getInstance();
+        c1.setTime(d1);
+        c2.setTime(d2);
+        return c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)
+                && c1.get(Calendar.DAY_OF_YEAR) == c2.get(Calendar.DAY_OF_YEAR);
     }
 
 
