@@ -2,6 +2,7 @@ package com.mojoteahouse.mojotea.data;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 
 import java.util.Map;
 
@@ -56,7 +57,7 @@ public class Topping implements Parcelable, Comparable<Topping> {
     }
 
     @Override
-    public int compareTo(Topping another) {
+    public int compareTo(@NonNull Topping another) {
         if (isSoldOut == another.isSoldOut()) {
             if (name == null) {
                 return 1;
